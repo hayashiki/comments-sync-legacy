@@ -43,9 +43,13 @@ type Docbase struct {
 		} `json:"user"`
 	} `json:"post"`
 	Comment struct {
-		ID        int       `json:"id"`
-		Body      string    `json:"body"`
-		Username  string    `json:"username"`
+		ID   int    `json:"id"`
+		Body string `json:"body"`
+		User struct {
+			ID              int    `json:"id"`
+			Name            string `json:"name"`
+			ProfileImageURL string `json:"profile_image_url"`
+		}
 		CreatedAt time.Time `json:"created_at"`
 	} `json:"comment"`
 	Users []struct {
@@ -55,7 +59,7 @@ type Docbase struct {
 	} `json:"users"`
 }
 
-var r = regexp.MustCompile(`@[a-zA-Z0-9_\-]+`)
+var r = regexp.MustCompile(`@[a-zA-Z0-9_\-\.]+`)
 
 func ReplaceText(text string, conf *Config) (string, bool) {
 	matches := r.FindAllStringSubmatch(text, -1)
