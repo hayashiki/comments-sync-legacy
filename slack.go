@@ -6,28 +6,25 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"os"
 	"strings"
 
 	"google.golang.org/appengine/urlfetch"
 )
 
-func SendToSlack(ctx context.Context, path string, text string) (string, error) {
+var slackWebhookURL = os.Getenv("SLACK_WEBHOOK_URL")
 
-	slackURL := "https://hooks.slack.com"
-	slackPath := path
-	u, _ := url.ParseRequestURI(slackURL)
-	u.Path = slackPath
-
-	urlStr := fmt.Sprintf("%v", u)
-
+func sendToSlack(ctx context.Context, text string) (string, error) {
 	data := url.Values{}
 	data.Set("payload", "{\"text\": \""+text+"\", \"link_names\": 1}")
 
 	client := urlfetch.Client(ctx)
-	req, _ := http.NewRequest("POST", urlStr, strings.NewReader(data.Encode()))
+	req, _ := http.NewRequest("POST", slackWebhookURL, strings.NewReader(data.Encode()))
 	req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
 
 	res, err := client.Do(req)
+
+	fmt.Print(res.Body)
 
 	defer res.Body.Close()
 
