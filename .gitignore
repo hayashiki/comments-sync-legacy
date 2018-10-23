@@ -1,5 +1,7 @@
 vendor
-config.json
+fixture/
 docbase-go-hook
 bk
 secret.yaml
+docbase-config.json
+github-config.json
