@@ -134,11 +134,9 @@ func IssueComment(webhook *Webhook, ctx context.Context) {
 		ReviewerListWithAt := getReviewersFromConfWithAt(ctx, *issueGithub.Issue.User.Login)
 		Reviewers := github.ReviewersRequest{Reviewers: ReviewerList}
 
-		n := int(*issueGithub.Comment.ID)
-
 		comment := new(github.IssueComment)
 		comment.Body = github.String(strings.Join(ReviewerListWithAt, ",") + "レビューお願いします")
-		issueSvc.EditComment(ctx, repoOwner, repo, n, comment)
+		issueSvc.EditComment(ctx, repoOwner, repo, *issueGithub.Comment.ID, comment)
 		client.PullRequests.RequestReviewers(ctx, repoOwner, repo, issueNum, Reviewers)
 	}
 }

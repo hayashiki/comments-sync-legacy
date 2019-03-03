@@ -19,9 +19,10 @@ type Config struct {
 	Accounts map[string]string `json:"accounts"`
 }
 
-func init() {
+func main() {
 	http.HandleFunc("/github/events", GithubEventHandler)
 	http.HandleFunc("/docbase/events", DocBaseEventHandler)
+	appengine.Main()
 }
 
 // GithubEventHandler is ...
