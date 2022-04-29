@@ -5,4 +5,4 @@ includes:
   
 handlers:
 - url: /.*
-  script: _go_app
+  script: auto

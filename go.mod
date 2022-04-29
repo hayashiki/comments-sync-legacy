@@ -1,4 +1,4 @@
-module github.com/hayashiki/comments-sync
+module github.com/hayashiki/comments-sync-legacy
 
 require (
 	github.com/google/go-github v17.0.0+incompatible
@@ -6,3 +6,5 @@ require (
 	golang.org/x/oauth2 v0.0.0-20190226205417-e64efc72b421
 	google.golang.org/appengine v1.4.0
 )
+
+go 1.13
